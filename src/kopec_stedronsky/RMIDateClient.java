@@ -1,4 +1,4 @@
-
+package kopec_stedronsky;
 
 import java.math.BigDecimal;
 import java.rmi.NotBoundException;
@@ -6,15 +6,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-import kopec_stedronsky.Calculator;
 
-
-/**
- * RMI DateClient
- * @author Stedronsky Thomas
- * @author Kopec Jakub
- * @version 2015-01-07
- */
 public class RMIDateClient{
 	private Calculator piServer;
 	public RMIDateClient(String ip) {
@@ -36,6 +28,7 @@ public class RMIDateClient{
 	}
 	
 	public static void main(String[] args) throws Exception {
+		//new RMIDateServer("RMI");
 		new RMIDateClient("192.168.0.19").getPI(10);
 	}
 }

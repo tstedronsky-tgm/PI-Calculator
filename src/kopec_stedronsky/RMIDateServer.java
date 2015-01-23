@@ -1,4 +1,4 @@
-
+package kopec_stedronsky;
 
 import java.math.BigDecimal;
 import java.rmi.Naming;
@@ -9,12 +9,9 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 
-import kopec_stedronsky.Calculator;
-import kopec_stedronsky.CalculatorImpl;
-
 
 /**
- * RMI DateServer
+ * Balancer für den Calculator
  * @author Stedronsky Thomas
  * @author Kopec Jakub
  * @version 2015-01-07
@@ -24,6 +21,28 @@ public class RMIDateServer implements Calculator{
 
 	
 	public RMIDateServer(String name) throws Exception{
+//		CalculatorImpl remObj = new CalculatorImpl();
+//		Registry registry = LocateRegistry.createRegistry(2000);
+//		Naming.bind(name, remObj);
+//		
+//
+//		try {
+//			System.out.println("starting server...");
+//
+//			name = "Calculator";
+//			Calculator stub = (Calculator) UnicastRemoteObject.exportObject(this, 0);
+//			Registry registry = LocateRegistry.getRegistry();
+//
+//			registry.bind(name, this);
+//			System.out.println("Server bound");
+//			System.out.println("Press any key to unbound object");
+//			System.in.read();
+//            registry.unbind(name);
+//            
+//		} catch (Exception e) {
+//			System.err.println("Server exception:");
+//			e.printStackTrace();
+//		}
 	}
 
 	@Override
