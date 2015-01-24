@@ -9,19 +9,21 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import kopec_stedronsky.RMI_Implementierung.CalculatorInterface;
+
 /**
  * Balancer fuer den Calculator
  * @author Stedronsky Thomas
  * @author Kopec Jakub
  * @version 2015-01-07
  */
-public class LoadBalancer extends UnicastRemoteObject implements BalancerInterface{
+public class LoadBalancer implements BalancerInterface{
 	//Serial-ID
 	private static final long serialVersionUID = 1L;
-	
+
 	private ArrayList<Server> server;
 	private int index;
-	
+
 	/**
 	 * Konstruktor
 	 * @param name
@@ -33,12 +35,13 @@ public class LoadBalancer extends UnicastRemoteObject implements BalancerInterfa
 			this.server = new ArrayList<Server>();
 			this.index = -1;
 			LocateRegistry.createRegistry(1099);
+			BalancerInterface stub = (BalancerInterface) UnicastRemoteObject.exportObject(this, 0);
 			Naming.bind(name, this);
 		} catch(Exception ex){
 			ex.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Checkt ob ein server da ist
 	 */
@@ -57,15 +60,17 @@ public class LoadBalancer extends UnicastRemoteObject implements BalancerInterfa
 	/**
 	 * Server wird den Balancer hinzugefuegt
 	 * @param Server
-	 * @throws AlreadyBoundException 
-	 * @throws MalformedURLException 
 	 */
 	@Override
-	public void addServer(Server server) throws RemoteException, MalformedURLException, AlreadyBoundException{
-		this.server.add(server);
-		Naming.bind("Server"+this.server.size(), server);
+	public void addServer(Server server){
+		try{
+			this.server.add(server);
+			Naming.bind("Server"+this.server.size(), server);
+		}catch(RemoteException | MalformedURLException | AlreadyBoundException e){
+			System.err.println(e.getMessage());
+		}
 	}
-	
+
 	/**
 	 * Pi mit den jeweiligen Kommastellen wird zurueckgegeben 
 	 * @param stellen
@@ -77,7 +82,7 @@ public class LoadBalancer extends UnicastRemoteObject implements BalancerInterfa
 		if(index == server.size())index = 0;
 		return this.server.get(this.index).pi(stellen);
 	}
-	
+
 	/**
 	 * Server wird entfernt 
 	 * @param Server
@@ -87,5 +92,4 @@ public class LoadBalancer extends UnicastRemoteObject implements BalancerInterfa
 	public void deleteServer(Server server) throws RemoteException {
 		this.server.remove(server);
 	}
-
 }

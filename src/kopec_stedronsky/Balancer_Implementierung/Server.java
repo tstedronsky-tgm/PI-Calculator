@@ -6,6 +6,9 @@ import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+
+import kopec_stedronsky.RMI_Implementierung.CalculatorInterface;
 
 /**
  * Server
@@ -35,6 +38,7 @@ public class Server implements CalculatorInterface, Serializable{
 			Registry registry = LocateRegistry.getRegistry(ip);
 			c = (BalancerInterface) registry.lookup(name);
 			c.addServer(this);
+			
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -59,6 +63,6 @@ public class Server implements CalculatorInterface, Serializable{
 	 */
 	@Override
 	public synchronized BigDecimal pi(int anzahl_nachkommastellen) throws RemoteException {
-		return Pi.pi(anzahl_nachkommastellen);
+		return new Calculator().pi(anzahl_nachkommastellen);
 	}
 }
