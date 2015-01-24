@@ -7,13 +7,13 @@ package kopec_stedronsky;
  * @version 2015-01-07
  */
 public class PIThread extends Thread {
-	private CalculatorBalancer c;
+	private LoadBalancer c;
 	
 	/**
 	 * Konstruktor
 	 * @param Load Balancer
 	 */
-	public PIThread(CalculatorBalancer c){
+	public PIThread(LoadBalancer c){
 		this.c = c;
 		this.start();
 	}
@@ -25,7 +25,7 @@ public class PIThread extends Thread {
 	public void run() {
 		while(true){
 			try {
-				this.sleep(2000);
+				PIThread.sleep(2000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
