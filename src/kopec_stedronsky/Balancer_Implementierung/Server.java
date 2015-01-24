@@ -53,6 +53,7 @@ public class Server implements CalculatorInterface, Serializable{
 	
 	/**
 	 * Dank dieser Methode kann man feststellen ob der Server noch vorhanden ist.
+	 * @return - true (boolean) wenn der Server noch rennt
 	 */
 	public boolean isterreichbar(){
 		return true;

@@ -17,7 +17,7 @@ public final class Pi {
 	private static final BigDecimal FIVE = new BigDecimal("5");
 	private static final BigDecimal TWO_THIRTY_NINE = new BigDecimal("239");
 
-	/*
+	/**
 	 * Diese Methode liefert Pi mit den gewuenschten Nachkommastellen
 	 * @param numDigits -die gewuenschte Anzahl von Nachkommastellen
 	 */
@@ -29,7 +29,7 @@ public final class Pi {
 				.setScale(numDigits, RoundingMode.DOWN);
 	}
 	
-	/*
+	/**
 	 * Diese Methode ist fuer die sequenzielle Berechnung von Pi zustaendig
 	 * @param x - Zahl zur berechnung von Pi
 	 * @param numDigits - Anzahl der gewuenschten Nachkommastellen

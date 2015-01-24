@@ -50,7 +50,7 @@ public class Server implements CalculatorInterface{
 	
 	/**
 	 * Main startet den Server
-	 * @param args
+	 * @param args - Main Arguments
 	 */
 	public static void main(String[] args){
 		//Server wird mit beliebigem Namen als Parameter erzeugt unter welchem er dann in der Registry zu finden ist

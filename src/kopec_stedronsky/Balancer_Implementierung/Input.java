@@ -10,7 +10,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 /**
- * Diese Klasse ist fuer die Verwaltung der Arguments 
+ * Diese Klasse ist fuer die Verwaltung der Arguments zustaendig
  */
 public class Input {
 	public Input(String[] args) throws RemoteException{

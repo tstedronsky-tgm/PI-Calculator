@@ -43,7 +43,7 @@ public class Client{
 	
 	/**
 	 * Main startert den Client
-	 * @param args
+	 * @param args - Main Arguments
 	 */
 	public static void main(String[] args){
 		new Client("192.168.0.12").getPI(10);

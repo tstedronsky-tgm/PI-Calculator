@@ -26,7 +26,7 @@ public class LoadBalancer implements BalancerInterface{
 
 	/**
 	 * Konstruktor
-	 * @param name
+	 * @param name - Name des Loadbalancers in der Registry
 	 * @throws RemoteException
 	 */
 	public LoadBalancer(String name) throws RemoteException{
@@ -43,7 +43,7 @@ public class LoadBalancer implements BalancerInterface{
 	}
 
 	/**
-	 * Checkt ob ein server da ist
+	 * Checkt ob ein Server vorhanden ist
 	 */
 	public void isThere(){
 		for(Server c : server){
@@ -59,7 +59,7 @@ public class LoadBalancer implements BalancerInterface{
 
 	/**
 	 * Server wird den Balancer hinzugefuegt
-	 * @param Server
+	 * @param Server - Server welcher hinzugefuegt werden soll
 	 */
 	@Override
 	public void addServer(Server server){
@@ -73,7 +73,7 @@ public class LoadBalancer implements BalancerInterface{
 
 	/**
 	 * Pi mit den jeweiligen Kommastellen wird zurueckgegeben 
-	 * @param stellen
+	 * @param stellen - die Anzahl der gewuenschten Nachkommastellen
 	 * @throws RemoteException
 	 */
 	@Override
@@ -85,7 +85,7 @@ public class LoadBalancer implements BalancerInterface{
 
 	/**
 	 * Server wird entfernt 
-	 * @param Server
+	 * @param Server - Server welcher entfernt werden soll
 	 * @throws RemoteException
 	 */
 	@Override

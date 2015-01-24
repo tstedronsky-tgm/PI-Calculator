@@ -4,9 +4,8 @@ import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-
 /**
- * Balancer für den Calculator
+ * Calculator
  * @author Stedronsky Thomas
  * @author Kopec Jakub
  * @version 2015-01-07
@@ -18,7 +17,12 @@ public class Calculator extends UnicastRemoteObject implements CalculatorInterfa
 	public Calculator() throws RemoteException{
 		super();
 	}
-
+	
+	/**
+	 * Liefert die gewuenschten Nachkommastellen
+	 * @param anzahl_nachkommastellen - Anzahl der Nachkommastellen
+	 * @return die gewuenschten Nachkommastellen
+	 */
 	@Override
 	public BigDecimal pi(int anzahl_nachkommastellen) throws RemoteException {
 		return Pi.pi(anzahl_nachkommastellen);

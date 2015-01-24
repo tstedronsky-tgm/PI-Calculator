@@ -15,9 +15,9 @@ public class Client{
 	
 	/**
 	 * Client 
-	 * @param ip
-	 * @param name
-	 * @param stellen
+	 * @param ip - ip der Registry
+	 * @param name - Name des Balancers in der Registry
+	 * @param stellen - Anzahl der gewuenschten Nachkommastellen von Pi
 	 */
 	public Client(String ip, String name, int stellen) {
 		try {
@@ -25,10 +25,8 @@ public class Client{
 			Registry registry = LocateRegistry.getRegistry(ip);
 			BalancerInterface b = (BalancerInterface) registry.lookup(name);
 			System.out.println(b.getResult(stellen));
-		} catch (RemoteException e) { 
-			e.printStackTrace();
-		} catch (NotBoundException e) {
-			e.printStackTrace();
+		} catch (RemoteException | NotBoundException e) { 
+			System.err.println(e.getMessage());
 		}
 	}
 }
