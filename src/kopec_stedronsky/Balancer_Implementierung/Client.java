@@ -1,4 +1,4 @@
-package kopec_stedronsky;
+package kopec_stedronsky.Balancer_Implementierung;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -6,7 +6,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 /**
- * Balancer f�r den Calculator
+ * Client
  * @author Stedronsky Thomas
  * @author Kopec Jakub
  * @version 2015-01-07

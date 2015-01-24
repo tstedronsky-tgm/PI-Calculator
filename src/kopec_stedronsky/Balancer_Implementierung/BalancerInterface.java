@@ -1,4 +1,4 @@
-package kopec_stedronsky;
+package kopec_stedronsky.Balancer_Implementierung;
 
 import java.math.BigDecimal;
 import java.net.MalformedURLException;

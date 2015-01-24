@@ -1,4 +1,4 @@
-package kopec_stedronsky;
+package kopec_stedronsky.Balancer_Implementierung;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -55,7 +55,7 @@ public class Server implements CalculatorInterface, Serializable{
 	}
 	
 	/**
-	 * @see kopec_stedronsky.Calculator#pi(int)
+	 * @see kopec_stedronsky.Balancer_Implementierung.Calculator#pi(int)
 	 */
 	@Override
 	public synchronized BigDecimal pi(int anzahl_nachkommastellen) throws RemoteException {
