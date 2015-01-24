@@ -1,21 +1,24 @@
 package kopec_stedronsky;
 
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
- * Balancer für den Calculator
+ * Balancer fuer den Calculator
  * @author Stedronsky Thomas
  * @author Kopec Jakub
  * @version 2015-01-07
  */
-public class CalculatorBalancer extends UnicastRemoteObject implements Balancer, Calculator{
-
+public class LoadBalancer extends UnicastRemoteObject implements BalancerInterface{
+	//Serial-ID
+	private static final long serialVersionUID = 1L;
+	
 	private ArrayList<Server> server;
 	private int index;
 	
@@ -24,12 +27,12 @@ public class CalculatorBalancer extends UnicastRemoteObject implements Balancer,
 	 * @param name
 	 * @throws RemoteException
 	 */
-	public CalculatorBalancer(String name) throws RemoteException{
+	public LoadBalancer(String name) throws RemoteException{
 		new PIThread(this);
 		try {
 			this.server = new ArrayList<Server>();
 			this.index = -1;
-			Registry registry = LocateRegistry.createRegistry(1099);
+			LocateRegistry.createRegistry(1099);
 			Naming.bind(name, this);
 		} catch(Exception ex){
 			ex.printStackTrace();
@@ -40,30 +43,31 @@ public class CalculatorBalancer extends UnicastRemoteObject implements Balancer,
 	 * Checkt ob ein server da ist
 	 */
 	public void isThere(){
-		int i=0;
 		for(Server c : server){
 			if(!c.isterreichbar()){
 				try {
 					this.deleteServer(c);
 				} catch (RemoteException e) {
-					e.printStackTrace();
+					System.err.println(e.getMessage());
 				}
 			}
-			i++;
 		}
 	}
 
 	/**
-	 * Server wird den Balancer hinzugefügt
+	 * Server wird den Balancer hinzugefuegt
 	 * @param Server
+	 * @throws AlreadyBoundException 
+	 * @throws MalformedURLException 
 	 */
 	@Override
-	public void addServer(Server server) throws RemoteException{
+	public void addServer(Server server) throws RemoteException, MalformedURLException, AlreadyBoundException{
 		this.server.add(server);
+		Naming.bind("Server"+this.server.size(), server);
 	}
 	
 	/**
-	 * Pi mit den jeweiligen Kommastellen wird zurückgegeben 
+	 * Pi mit den jeweiligen Kommastellen wird zurueckgegeben 
 	 * @param stellen
 	 * @throws RemoteException
 	 */
@@ -73,16 +77,6 @@ public class CalculatorBalancer extends UnicastRemoteObject implements Balancer,
 		if(index == server.size())index = 0;
 		System.out.println(index);
 		return this.server.get(this.index).pi(stellen);
-	}
-	
-	/**
-	 * Pi mit den jeweiligen Kommastellen wird zurückgegeben 
-	 * @param stellen
-	 * @throws RemoteException
-	 */
-	@Override
-	public BigDecimal pi(int anzahl_nachkommastellen) throws RemoteException {
-		return new CalculatorImpl().pi(anzahl_nachkommastellen);
 	}
 	
 	/**
