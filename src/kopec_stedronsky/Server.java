@@ -2,7 +2,6 @@ package kopec_stedronsky;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.rmi.NotBoundException;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -14,47 +13,52 @@ import java.rmi.registry.Registry;
  * @author Kopec Jakub
  * @version 2015-01-07
  */
-public class Server implements Calculator, Serializable{
-	/**
-	 * 
-	 */
+@SuppressWarnings("deprecation")
+public class Server implements CalculatorInterface, Serializable{
+	//Serial-ID
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Konstruktor
-	 * @param ip
-	 * @param name
+	 * Erstellt einen Server, meldet ihn beim LoadBalancer an
+	 * und meldet ihn beim LoadBalancer wieder ab wenn der Server
+	 * ausgeschaltet wird
+	 * @param ip - ip der Registry
+	 * @param name - name des LoadBalancers in der Registry
 	 */
 	public Server(String ip, String name){
-		Balancer c = null;
+		System.out.println("Starting server...");
+		BalancerInterface c = null;
 		try {
-			if ( System.getSecurityManager() == null ) {
-				System.setSecurityManager( new RMISecurityManager() ); }
+			if(System.getSecurityManager() == null);
+			System.setSecurityManager(new RMISecurityManager());
+			
 			Registry registry = LocateRegistry.getRegistry(ip);
-			c = (Balancer) registry.lookup(name);
+			c = (BalancerInterface) registry.lookup(name);
 			c.addServer(this);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		} catch (NotBoundException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 		}
 		finally{
 			try {
 				c.deleteServer(this);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 		}
-		
 	}
 	
+	/*
+	 * Dank dieser Methode kann man feststellen ob der Server noch vorhanden ist.
+	 */
 	public boolean isterreichbar(){
 		return true;
 	}
-
+	
+	/*
+	 * @see kopec_stedronsky.Calculator#pi(int)
+	 */
 	@Override
 	public synchronized BigDecimal pi(int anzahl_nachkommastellen) throws RemoteException {
-		return new CalculatorImpl().pi(anzahl_nachkommastellen);
+		return Pi.pi(anzahl_nachkommastellen);
 	}
 }
