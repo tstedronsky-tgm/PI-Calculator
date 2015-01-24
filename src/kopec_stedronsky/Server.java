@@ -47,14 +47,14 @@ public class Server implements CalculatorInterface, Serializable{
 		}
 	}
 	
-	/*
+	/**
 	 * Dank dieser Methode kann man feststellen ob der Server noch vorhanden ist.
 	 */
 	public boolean isterreichbar(){
 		return true;
 	}
 	
-	/*
+	/**
 	 * @see kopec_stedronsky.Calculator#pi(int)
 	 */
 	@Override

@@ -9,7 +9,7 @@ import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-/*
+/**
  * Diese Klasse ist fuer die Verwaltung der Arguments 
  */
 public class Input {
@@ -63,7 +63,7 @@ public class Input {
 		}
 	}
 	
-	/*
+	/**
 	 * Diese Methode liefert die lokale Ip-Adresse des verwendeten 
 	 * Hostsystems
 	 * @return - die lokale Ip-Adresse

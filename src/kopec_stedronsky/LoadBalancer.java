@@ -75,7 +75,6 @@ public class LoadBalancer extends UnicastRemoteObject implements BalancerInterfa
 	public BigDecimal getResult(int stellen) throws RemoteException{
 		this.index++;
 		if(index == server.size())index = 0;
-		System.out.println(index);
 		return this.server.get(this.index).pi(stellen);
 	}
 	
