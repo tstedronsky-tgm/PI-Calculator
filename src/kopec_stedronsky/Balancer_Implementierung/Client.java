@@ -19,13 +19,13 @@ public class Client{
 	 * @param name - Name des Balancers in der Registry
 	 * @param stellen - Anzahl der gewuenschten Nachkommastellen von Pi
 	 */
-	public Client(String ip, String name, int stellen) {
+	public Client(String ip, String name, int stellen) throws RemoteException{
 		try {
 			System.out.println("starting client...");
 			Registry registry = LocateRegistry.getRegistry(ip);
 			BalancerInterface b = (BalancerInterface) registry.lookup(name);
 			System.out.println(b.getResult(stellen));
-		} catch (RemoteException | NotBoundException e) { 
+		} catch (NotBoundException e) { 
 			System.err.println(e.getMessage());
 		}
 	}

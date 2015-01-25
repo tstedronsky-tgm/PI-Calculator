@@ -27,8 +27,9 @@ public class Server implements CalculatorInterface{
 			Registry registry = LocateRegistry.createRegistry(1099);
 			//das Interface als 'stub' anderen Objekten die remote drauf zugreifen ermoeglichen 
 			CalculatorInterface stub = (CalculatorInterface) UnicastRemoteObject.exportObject(this, 0);
-			//Server mit uebergebenem Namen an die Registry binden
-			registry.bind(name, this);
+			Calculator c = new Calculator();
+			//Den implementierten Calculator mit uebergebenem Namen an die Registry binden
+			registry.bind(name, c);
 			System.out.println("Server bound...");
 			System.out.println("Press any key to unbound object...");
 			System.in.read();

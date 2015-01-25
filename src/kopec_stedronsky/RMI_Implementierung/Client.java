@@ -1,5 +1,6 @@
 package kopec_stedronsky.RMI_Implementierung;
 
+import java.math.BigDecimal;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -16,36 +17,33 @@ public class Client{
 	 * Konstruktor erstellt den Client
 	 * @param ip - ip der Registry
 	 */
-	public Client(String ip) {
+	public Client(String ip) throws RemoteException{
 		try {
 			System.out.println("starting client...");
 			//Bekommen der Registry ueber die uebergebene ip
 			Registry registry = LocateRegistry.getRegistry(ip);
 			this.piServer = (CalculatorInterface) registry.lookup("RMI");
-		} catch (RemoteException | NotBoundException e){
+		} catch (NotBoundException e){
 			System.err.println(e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Gibt die gewuenschte Anzahl der Nachkommastellen von Pi aus
 	 * @param anzahl - gewuenschte Anzahl der Nachkommastellen
 	 * @throws RemoteException
 	 */
-	public void getPI(int anzahl){
-		try{
-			System.out.println("PI = " + piServer.pi(anzahl) ) ;
-		}catch(RemoteException e){
-			System.err.println(e.getMessage());
-		}
-		
+	public BigDecimal getPI(int anzahl) throws RemoteException{
+		BigDecimal pi = piServer.pi(anzahl);
+		System.out.println("PI = " + pi ) ;
+		return pi;
 	}
-	
+
 	/**
 	 * Main startert den Client
 	 * @param args - Main Arguments
 	 */
-	public static void main(String[] args){
-		new Client("192.168.0.12").getPI(10);
+	public static void main(String[] args) throws RemoteException{
+		new Client("192.168.0.12").getPI(-1);
 	}
 }
